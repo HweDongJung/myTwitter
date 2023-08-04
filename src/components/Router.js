@@ -5,8 +5,8 @@ import Home from "../routes/Home";
 
 //유저의 상태, 동작에 따른 페이지 라우팅을 담당하는 코드 
 
-const AppRouter = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태인가에 대한 state, 기본 false, useState Hook으로 상태 초기화 
+const AppRouter = ({ isLoggedIn }) => {
+    
     return (
         <Router>
             <Routes>
