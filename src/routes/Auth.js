@@ -23,7 +23,7 @@ const Auth = () => {
                const data = await authService.createUserWithEmailAndPassword(email, password);
                console.log(data);
             } else {
-               const data = await authService.Auth.signInWithEmailAndPassword(email, password);
+               const data = await authService.signInWithEmailAndPassword(email, password);
                console.log(data);
             }
         } catch (error){
