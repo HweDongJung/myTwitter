@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../myfb";
+import Nweet from "../components/nweet"
 
-const Home = () => {
+const Home = ({ userObj }) => {
     const [neweet, setNeweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const getNweets = async () => { 
+    /*const getNweets = async () => { 
         const dbnweets = await dbService.collection("nweets").get();
         dbnweets.forEach((document) => {
             const nweetObject = {
@@ -14,18 +15,24 @@ const Home = () => {
             setNweets((prev) => [nweetObject, ...prev]);
             
         });
-        console.log(nweets);
-    };
+    }; // 트윗 받아내기, 하지만 realtime방식이 아님 */
 
     useEffect(() => { 
-        getNweets();
+        dbService.collection("nweets").onSnapshot(snapshot => {
+            const nweetArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setNweets(nweetArray);
+        });
     }, []);
 
     const onSubmit = async (event) => {
         event.preventDefault();
         await dbService.collection("nweets").add({
-            neweet,
-            createdAt: Date.now()
+            text: neweet,
+            createdAt: Date.now(),
+            creatorId: userObj.uid
         });
         setNeweet("");
     };
@@ -42,9 +49,7 @@ const Home = () => {
             </form>
             <div>
                 {nweets.map((neweet) => (
-                    <div key={neweet.id}>
-                        <h4>{neweet.neweet}</h4>
-                    </div>
+                    <Nweet key={neweet.id} nweetObj= {neweet} isOwner ={neweet.creatorId === userObj.uid} />
                 ))}
             </div>
         </div>

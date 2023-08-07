@@ -7,15 +7,14 @@ import Navigation from "./Navigation";
 
 //유저의 상태, 동작에 따른 페이지 라우팅을 담당하는 코드 
 
-const AppRouter = ({ isLoggedIn }) => {
-    
+const AppRouter = ({ isLoggedIn, userObj }) => {
     return (
         <Router>
             {isLoggedIn && <Navigation />}
             <Routes>
                 {isLoggedIn ? 
                 <>
-                    <Route exact path="/" element={<Home />}></Route>
+                    <Route exact path="/" element={<Home userObj={userObj} />}></Route>
                     <Route exact path="/Profile" element={<Profile />}></Route> 
                 </> 
                 : <Route exact path="/" element={<Auth />}></Route>
