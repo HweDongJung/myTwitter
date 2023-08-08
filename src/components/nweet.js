@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { dbService } from "../myfb";
+import { dbService, storageService } from "../myfb";
 
 const Nweet = ({Key, nweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
-    const onDeleteClick = () => {
+    const onDeleteClick = async () => {
         const ok = window.confirm("Are you sure delete?")
         if(ok){
-            dbService.doc(`nweets/${nweetObj.id}`).delete();
+            await dbService.doc(`nweets/${nweetObj.id}`).delete();
+            await storageService.refFromURL(nweetObj.fileUrl).delete();
         }
     }
     const onChange = (event) => {
@@ -37,6 +38,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
             ) : (
             <>
             <h4>{nweetObj.text}</h4>
+            {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
             {isOwner && (
                 <>
                 <button onClick={onDeleteClick}>Delete</button>
