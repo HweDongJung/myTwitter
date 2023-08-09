@@ -5,7 +5,7 @@ import Nweet from "../components/nweet"
 const Home = ({ userObj }) => {
     const [neweet, setNeweet] = useState(""); //게시하려는 nweet의 텍스트내용 저장 
     const [nweets, setNweets] = useState([]); //서비스의 모든 nweet 들을 배열에 저장함 
-    const [file, setFile] = useState(); //업로드한 사진의 URL화를 저장해두는 state
+    const [file, setFile] = useState(""); //업로드한 사진의 URL화를 저장해두는 state
     /*const getNweets = async () => { 
         const dbnweets = await dbService.collection("nweets").get();
         dbnweets.forEach((document) => {
