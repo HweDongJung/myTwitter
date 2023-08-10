@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "../myfb";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Nweet = ({Key, nweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
@@ -25,27 +27,27 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
     }
     const toggleEditing = () => setEditing((prev) => !prev);
     return (
-        <div>
+        <div className="nweet">
             {editing ? (
                 <>
-                    <form onSubmit={onSubmit}>
-                        <input type="text" value={newNweet} required onChange={onChange} />
-                        <input type="submit" value="Update" />
+                    <form onSubmit={onSubmit} className="container nweetEdit">
+                        <input type="text" value={newNweet} required autoFocus onChange={onChange} className="formInput" />
+                        <input type="submit" value="Update" className="formBtn"/>
+                        <span onClick={toggleEditing} className="formBtn cancelBtn">Cancel</span>
                     </form>
-                    <button onClick={toggleEditing}>Cancel</button>
                 </>
 
             ) : (
-            <>
-            <h4>{nweetObj.text}</h4>
-            {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
-            {isOwner && (
                 <>
-                <button onClick={onDeleteClick}>Delete</button>
-                <button onClick={toggleEditing}>Edit</button>
+                <h4>{nweetObj.text}</h4>
+                {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
+                {isOwner && (
+                    <div className="nweet_actions">
+                        <span onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></span>
+                        <span onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></span>
+                    </div>
+                )}
                 </>
-            )}
-            </>
             )}
         </div>
     )

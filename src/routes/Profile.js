@@ -7,6 +7,7 @@ export default ( { userObj, refreshUser }) => {
     const onLogOutClick = () => {
     authService.signOut();
     navigate("/");
+    refreshUser();
     };
 
 const [disName,setDisName] = useState(userObj.displayName);
@@ -34,13 +35,12 @@ const onChange = (event) => {
 }
 
 return (
-    <>
-    <form onSubmit={onSubmit}>
-        <input tyoe="text" onChange={onChange} value={disName} placeholder="Display Name" />
-        <input type="submit" value={"Update Profile"} />
-    </form>
-        <button onClick={onLogOutClick}>Log Out</button>
-        <span>Profile</span>
-    </>
+    <div className="container">
+        <form onSubmit={onSubmit} className="profileForm">
+            <input tyoe="text" onChange={onChange} value={disName} autoFocus placeholder="Display Name" className="formInput" />
+            <input type="submit" value={"Update Profile"} className="formBtn" style={{ marginTop: 10, }} />
+        </form>
+        <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>Log Out</span>
+    </div>
 );
 };

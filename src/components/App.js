@@ -13,7 +13,7 @@ function App() {
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
-          updateProfile: (args) => user.updateProfile(args),
+          updateProfile: (args) => user.updateProfile(args), //함수의 기능 승계 
         });
 
         if(user.displayName == null) user.updateProfile({ displayName: "Jung"})
