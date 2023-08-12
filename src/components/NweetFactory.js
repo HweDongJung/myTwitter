@@ -50,29 +50,24 @@ const NweetFactory = ({ userObj }) => {
 
     return (
         <form onSubmit={onSubmit} className="factoryForm">
-            <div className="factoryInput_container">
-                <input className="factoryInput__Input" value={neweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120} />
+            <div className="factoryInput__container">
+                <input className="factoryInput__input" value={neweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120} />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />
             </div>
             <label htmlFor="attach-file" className="factoryInput__label">
             <span>Add photos</span><FontAwesomeIcon icon={faPlus} />
             </label>
 
-
-
-
-
-
-                <input id="attach-file" type="file" accept="image/*" onChange={onFileChange} style={{opacity: 0,}} />
-                { file && 
-                    <div className="factoryForm__attachment">
-                        <img src={file} style={{backgroundImage: file,}} />
-                        <div className="factoryForm__clear" onClick={onClearPhoto}>
-                            <span>Clear</span>
-                            <FontAwesomeIcon icon="faTimes" />
-                        </div>
-                    </div> 
-                }
+            <input id="attach-file" type="file" accept="image/*" onChange={onFileChange} style={{opacity: 0,}} />
+            { file && 
+                <div className="factoryForm__attachment">
+                    <img src={file} style={{backgroundImage: file,}} />
+                    <div className="factoryForm__clear" onClick={onClearPhoto}>
+                        <span>Clear</span>
+                        <FontAwesomeIcon icon="faTimes" />
+                    </div>
+                </div> 
+            }        
         </form>
     )
 
