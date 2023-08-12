@@ -8,6 +8,7 @@ const NweetFactory = ({ userObj }) => {
     const [file, setFile] = useState(""); //업로드한 사진의 URL화를 저장해두는 state
 
     const onSubmit = async (event) => {
+        console.log(neweet);
         if(neweet === "") return;
         event.preventDefault();
         let fileUrl = ""; 
@@ -26,7 +27,7 @@ const NweetFactory = ({ userObj }) => {
         }
         await dbService.collection("nweets").add(nweet); //db에 nweet 등록, 등록자의 uid와 텍스트, 개시 시간을 저장함 
         setNeweet(""); // 글 게시 input 칸 초기화
-        setFile(null);
+        setFile("");
     };
 
     const onChange = (event) => {

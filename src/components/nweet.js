@@ -10,7 +10,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
         const ok = window.confirm("Are you sure delete?")
         if(ok){
             await dbService.doc(`nweets/${nweetObj.id}`).delete();
-            await storageService.refFromURL(nweetObj.fileUrl).delete();
+            if(nweetObj.fileUrl != "") await storageService.refFromURL(nweetObj.fileUrl).delete();
         }
     }
     const onChange = (event) => {
