@@ -45,6 +45,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
                     <div className="nweet_actions">
                         <span onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></span>
                         <span onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></span>
+                        <span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{nweetObj.createdAtStr}</span>
                     </div>
                 )}
                 </>

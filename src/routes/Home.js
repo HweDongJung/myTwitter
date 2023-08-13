@@ -7,7 +7,7 @@ const Home = ({ userObj }) => {
     const [nweets, setNweets] = useState([]); //서비스의 모든 nweet 들을 배열에 저장함 
 
     useEffect(() => { 
-        dbService.collection("nweets").onSnapshot(snapshot => {
+        dbService.collection("nweets").orderBy("createdAt","desc").onSnapshot(snapshot => { 
             const nweetArray = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data()

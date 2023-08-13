@@ -8,9 +8,14 @@ const NweetFactory = ({ userObj }) => {
     const [file, setFile] = useState(""); //업로드한 사진의 URL화를 저장해두는 state
 
     const onSubmit = async (event) => {
-        console.log(neweet);
+        
         if(neweet === "") return;
         event.preventDefault();
+        const time = Date.now();
+        const timeData = new Date(time);
+        const strTime = `${timeData.getFullYear()}-${timeData.getMonth() + 1}-${timeData.getDate()} ${timeData.getHours()}:${timeData.getMinutes()}`;
+        
+
         let fileUrl = ""; 
         
         if(file !== ""){
@@ -21,7 +26,8 @@ const NweetFactory = ({ userObj }) => {
         
         const nweet = {
             text: neweet,
-            createdAt: Date.now(),
+            createdAt: time,
+            createdAtStr: strTime,
             creatorId: userObj.uid,
             fileUrl
         }
