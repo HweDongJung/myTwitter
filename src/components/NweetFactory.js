@@ -29,6 +29,7 @@ const NweetFactory = ({ userObj }) => {
             createdAt: time,
             createdAtStr: strTime,
             creatorId: userObj.uid,
+            creatorDisplayName: userObj.displayName,
             fileUrl
         }
         await dbService.collection("nweets").add(nweet); //db에 nweet 등록, 등록자의 uid와 텍스트, 개시 시간을 저장함 

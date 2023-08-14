@@ -13,10 +13,11 @@ function App() {
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
+          profilePic: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
           updateProfile: (args) => user.updateProfile(args), //함수의 기능 승계 
         });
 
-        if(user.displayName == null) user.updateProfile({ displayName: "Jung"})
+        if(user.displayName == null) user.updateProfile({ displayName: "New_user"})
       } else {
         setIsLoggedIn(false);
       }

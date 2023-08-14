@@ -26,8 +26,12 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
         setEditing(false);
     }
     const toggleEditing = () => setEditing((prev) => !prev);
-    return (
+    return ( 
         <div className="nweet">
+            <div>
+            <img height="50" width="50" src = "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19" />
+            <span>{nweetObj.creatorDisplayName}</span>
+            </div>
             {editing ? (
                 <>
                     <form onSubmit={onSubmit} className="container nweetEdit">
@@ -41,13 +45,18 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
                 <>
                 <h4>{nweetObj.text}</h4>
                 {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
-                {isOwner && (
+                {isOwner ? (
                     <div className="nweet_actions">
                         <span onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></span>
                         <span onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></span>
                         <span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{nweetObj.createdAtStr}</span>
                     </div>
+                ) : (
+                    <div>
+                        <span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{nweetObj.createdAtStr}</span>
+                    </div>
                 )}
+                
                 </>
             )}
         </div>
