@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const Navigation = ( { userObj } ) => ( 
+
+const Navigation = ( { userObj, profileUrl} ) => ( 
 <nav>
     <ul style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
         <li>
             <Link to="/" style={ {marginRight: 10} }>
-                <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+                <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="4x" />
             </Link>
         </li>
         <li>
@@ -20,10 +21,10 @@ const Navigation = ( { userObj } ) => (
             alignItems: "center",
             fontSize: 12,
           }}>
-                <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+                <img src={profileUrl} width={"55px"} height={"55px"} />
                 <span style={{ marginTop: 10 }}>
                     {userObj.displayName
-                    ? `${userObj.displayName}의 Profile`
+                    ? `${userObj.displayName}'s Profile`
                     : "Profile"}
                 </span>
             </Link>

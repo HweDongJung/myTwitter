@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authService } from "../myfb";
+import { dbService, authService } from "../myfb";
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
@@ -20,9 +20,13 @@ const AuthForm = () => {
         event.preventDefault(); 
         try{
             
-            if(newaccount){
-               const data = await authService.createUserWithEmailAndPassword(email, password);
-               console.log(data);
+            if(newaccount){ //create new account
+               const newUserData = await authService.createUserWithEmailAndPassword(email, password);
+               dbService.collection("nweetusers").doc(newUserData.user.uid).set({
+                displayName: "New_user",
+                photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
+                uid: newUserData.user.uid
+            });
             } else {
                const data = await authService.signInWithEmailAndPassword(email, password);
                console.log(data);

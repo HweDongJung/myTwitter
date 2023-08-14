@@ -6,6 +6,13 @@ import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 const Nweet = ({Key, nweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
+    const [profilePic, setProfilePic] = useState("");
+    const [nweetDisName, setNweetDisName] = useState("");
+    dbService.collection('nweetusers').doc(nweetObj.creatorId).get().then((value) => {
+        setProfilePic(value.data()["photoURL"]);
+        setNweetDisName(value.data()["displayName"]);
+    });
+
     const onDeleteClick = async () => {
         const ok = window.confirm("Are you sure delete?")
         if(ok){
@@ -22,15 +29,15 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         console.log(nweetObj, newNweet);
-        await dbService.doc(`nweets/${nweetObj.id}`).update({ text: newNweet });
+        await dbService.doc(`nweets/${nweetObj.id}`).update({ text: newNweet }); //트윗 수정 
         setEditing(false);
     }
     const toggleEditing = () => setEditing((prev) => !prev);
     return ( 
         <div className="nweet">
             <div>
-            <img height="50" width="50" src = "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19" />
-            <span>{nweetObj.creatorDisplayName}</span>
+                <img height="50" width="50" style={{verticalAlign: "top", border: "10px"}} src = {profilePic} />
+                <span style={{fontWeight: "bold", fontSize: "25px"}}>{nweetDisName}</span>
             </div>
             {editing ? (
                 <>

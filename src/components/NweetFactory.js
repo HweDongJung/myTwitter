@@ -22,6 +22,7 @@ const NweetFactory = ({ userObj }) => {
             const fileRef = storageService.ref().child(`${userObj.uid}`);
             const response = await fileRef.putString(file, "data_url");
             fileUrl = await response.ref.getDownloadURL();
+            console.log(fileUrl);
         }
         
         const nweet = {
@@ -72,7 +73,7 @@ const NweetFactory = ({ userObj }) => {
                     <img src={file} style={{backgroundImage: file,}} />
                     <div className="factoryForm__clear" onClick={onClearPhoto}>
                         <span>Clear</span>
-                        <FontAwesomeIcon icon="faTimes" />
+                        
                     </div>
                 </div> 
             }        
