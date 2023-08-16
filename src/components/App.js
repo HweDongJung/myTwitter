@@ -11,14 +11,15 @@ function App() {
   
   
   useEffect(() => {
-    authService.onAuthStateChanged( (user) => {
+    authService.onAuthStateChanged((user) => {
       if(user){
-        dbService.collection('nweetusers').doc(user.uid).get().then((value) => {
-          setProfileUrl(value.data()["photoURL"]);
-        });
+        if(user.displayName == null) user.updateProfile({ displayName: "New_user" });   
+        if(user.photoURL == null) user.updateProfile({photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19"})
+        
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
+          photoURL: user.photoURL,
           updateProfile: (args) => user.updateProfile(args), //함수의 기능 승계 
         });
 
@@ -44,7 +45,7 @@ function App() {
 
   return (
   <>
-    { init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj} profileUrl={profileUrl}/> : "wait a min.." }
+    { init ? <AppRouter refreshUser={refreshUser} isLoggedIn={isLoggedIn} userObj={userObj}/> : "wait a min.." }
   </>
   ); 
 }

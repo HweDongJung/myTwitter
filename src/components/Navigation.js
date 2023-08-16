@@ -21,7 +21,7 @@ const Navigation = ( { userObj, profileUrl} ) => (
             alignItems: "center",
             fontSize: 12,
           }}>
-                <img src={profileUrl} width={"55px"} height={"55px"} />
+                <img src={userObj.photoURL} width={"55px"} height={"55px"} />
                 <span style={{ marginTop: 10 }}>
                     {userObj.displayName
                     ? `${userObj.displayName}'s Profile`

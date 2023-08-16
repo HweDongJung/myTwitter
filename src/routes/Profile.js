@@ -45,10 +45,12 @@ const onSubmitPic = async (event) => {
         const fileRef = storageService.ref().child(`profilePics/${userObj.uid}`); //프사 저장 
         const response = await fileRef.putString(picFile, "data_url");
         fileUrl = await response.ref.getDownloadURL(); //fileUrl = 프사 url
-        console.log(fileUrl);
+        //console.log(fileUrl);
         if(userObj.photoURL !== picFile){
+            await userObj.updateProfile({photoURL: fileUrl});
             await dbService.doc(`nweetusers/${userObj.uid}`).update({ photoURL: fileUrl });
             refreshUser();
+            navigate("/");
         } 
     }
 }

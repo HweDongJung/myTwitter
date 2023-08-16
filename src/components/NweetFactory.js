@@ -9,7 +9,7 @@ const NweetFactory = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         
-        if(neweet === "") return;
+        if(neweet === "" && file === "") return;
         event.preventDefault();
         const time = Date.now();
         const timeData = new Date(time);
@@ -19,10 +19,11 @@ const NweetFactory = ({ userObj }) => {
         let fileUrl = ""; 
         
         if(file !== ""){
-            const fileRef = storageService.ref().child(`${userObj.uid}`);
+            const fileName = Math.random().toString(20).slice(2);
+            const fileRef = storageService.ref().child(`${userObj.uid}/${fileName}`);
             const response = await fileRef.putString(file, "data_url");
             fileUrl = await response.ref.getDownloadURL();
-            console.log(fileUrl);
+            //console.log(fileUrl);
         }
         
         const nweet = {
