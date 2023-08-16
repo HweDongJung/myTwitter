@@ -6,7 +6,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default ( { userObj, refreshUser }) => {
     const navigate = useNavigate();
-    const [changed,setChanged] = useState(false);
     const [picFile,setPicFile] = useState("");
     const onLogOutClick = () => {
     authService.signOut();
@@ -50,7 +49,7 @@ const onSubmitPic = async (event) => {
             await userObj.updateProfile({photoURL: fileUrl});
             await dbService.doc(`nweetusers/${userObj.uid}`).update({ photoURL: fileUrl });
             refreshUser();
-            navigate("/");
+            window.location.replace("/");
         } 
     }
 }
@@ -82,7 +81,9 @@ return (
 
         <form onSubmit={onSubmitPic}>
             <label htmlFor="attach-file" className="factoryInput__label">
-            <span style={{justifyContent: "center",alignItems: "center", display: "flex", fontSize: "20px", marginTop: "15px"}}>Change photo &nbsp;<FontAwesomeIcon icon={faPlus} /></span>
+            <span style={{justifyContent: "center",alignItems: "center", display: "flex", fontSize: "20px", marginTop: "15px"}}>
+                Change photo &nbsp;<FontAwesomeIcon icon={faPlus} />
+            </span>
             </label>
             <input id="attach-file" type="file" accept="image/*" onChange={onChangePicture} style={{opacity: 0,}} />
             <input type="submit" value={"Update Profile Picture"} className="formBtn" style={{ marginTop: 10, }} />

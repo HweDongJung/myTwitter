@@ -21,11 +21,15 @@ const AuthForm = () => {
         try{
             
             if(newaccount){ //create new account
-               const newUserData = await authService.createUserWithEmailAndPassword(email, password);
-               dbService.collection("nweetusers").doc(newUserData.user.uid).set({
+               const newUser = await authService.createUserWithEmailAndPassword(email, password);
+               newUser.user.updateProfile({
+                    displayName: "New_user" ,
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19"
+                });
+               dbService.collection("nweetusers").doc(newUser.user.uid).set({
                 displayName: "New_user",
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
-                uid: newUserData.user.uid
+                uid: newUser.user.uid
             });
             } else {
                const data = await authService.signInWithEmailAndPassword(email, password);

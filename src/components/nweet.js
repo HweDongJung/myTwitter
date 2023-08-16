@@ -3,6 +3,16 @@ import { dbService, storageService } from "../myfb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
+function extractVideoID(url) { //유투브 id 추출 
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[7].length == 11) {
+      return match[7];
+    } else {
+      return "";
+    }
+  }
+
 const Nweet = ({Key, nweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
@@ -12,6 +22,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
         setProfilePic(value.data()["photoURL"]);
         setNweetDisName(value.data()["displayName"]);
     });
+    const youtubeID = extractVideoID(nweetObj.text);
 
     const onDeleteClick = async () => {
         const ok = window.confirm("Are you sure delete?")
@@ -37,7 +48,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
         <div className="nweet">
             <div>
                 <img height="50" width="50" style={{verticalAlign: "top", border: "10px"}} src = {profilePic} />
-                <span style={{fontWeight: "bold", fontSize: "25px"}}>{nweetDisName}</span>
+                <span style={{fontWeight: "bold", fontSize: "25px"}}>&nbsp;{nweetDisName}</span>
             </div>
             {editing ? (
                 <>
@@ -52,6 +63,10 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
                 <>
                 <h4>{nweetObj.text}</h4>
                 {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
+                { //텍스트에 유투브 링크가 있다면 유투브 iframe 삽입
+                    youtubeID && 
+                    <iframe height="200px" src={`https://www.youtube.com/embed/${youtubeID}`} frameborder="0" allowfullscreen />
+                }
                 {isOwner ? (
                     <div className="nweet_actions">
                         <span onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></span>
