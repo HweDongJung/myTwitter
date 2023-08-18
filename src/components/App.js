@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if(user){
+        console.log(user);
         if(user.displayName == null) user.updateProfile({ displayName: "New_user" });   
         if(user.photoURL == null) user.updateProfile({photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19"})
         

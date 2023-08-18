@@ -14,6 +14,11 @@ export default ( { userObj, refreshUser }) => {
     };
 
 const [disName,setDisName] = useState(userObj.displayName);
+const [introduce, setIntroduce] = useState("");
+
+dbService.collection('nweetusers').doc(userObj.uid).get().then((value) => {
+    setIntroduce(value.data()["introduce"]);
+});
 
 const getMyNweets = async () => {
     const myNweets = await dbService.collection("nweets").where("creatorId", "==", userObj.uid).orderBy("createdAt").get();
@@ -68,6 +73,7 @@ const onChangePicture = (event) => {
 
 return (
     <div className="container">
+        <div style={{justifyContent: "center",alignItems: "center", display: "flex", marginBottom: "20px"}}>{introduce}</div>
         <form onSubmit={onSubmit} className="profileForm">
             <input type="text" onChange={onChange} value={disName} autoFocus placeholder="Display Name" className="formInput" />
             <input type="submit" value={"Update Profile Name"} className="formBtn" style={{ marginTop: 10, }} />

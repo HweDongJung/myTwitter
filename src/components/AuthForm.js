@@ -29,6 +29,7 @@ const AuthForm = () => {
                dbService.collection("nweetusers").doc(newUser.user.uid).set({
                 displayName: "New_user",
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
+                introduce: "hello world!",
                 uid: newUser.user.uid
             });
             } else {
