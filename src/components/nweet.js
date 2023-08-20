@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { dbService, storageService } from "../myfb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function extractVideoID(url) { //유투브 id 추출 
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
@@ -47,8 +48,10 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
     return ( 
         <div className="nweet">
             <div>
+                <Link to={`/${nweetDisName}`} state= { {uid: nweetObj.creatorId} }>
                 <img height="50" width="50" style={{verticalAlign: "top", border: "10px"}} src = {profilePic} />
                 <span style={{fontWeight: "bold", fontSize: "25px"}}>&nbsp;{nweetDisName}</span>
+                </Link>
             </div>
             {editing ? (
                 <>
