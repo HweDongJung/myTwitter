@@ -16,16 +16,16 @@ export default ( { userObj, refreshUser }) => {
 const [disName,setDisName] = useState(userObj.displayName);
 const [introduce, setIntroduce] = useState("");
 
-dbService.collection('nweetusers').doc(userObj.uid).get().then((value) => {
-    setIntroduce(value.data()["introduce"]);
-});
-
 const getMyNweets = async () => {
     const myNweets = await dbService.collection("nweets").where("creatorId", "==", userObj.uid).orderBy("createdAt").get();
 } 
 
 useEffect(() => {
-getMyNweets();
+    dbService.collection('nweetusers').doc(userObj.uid).get().then((value) => {
+        console.log(introduce);
+        setIntroduce(value.data()["introduce"]);
+    });
+    getMyNweets();
 }, []);
 
 const onSubmit = async (event) => { 
@@ -37,9 +37,21 @@ const onSubmit = async (event) => {
     } 
     
 }
+
+const onSubmitIntroduce = async (event) => {
+    event.preventDefault();
+    await dbService.doc(`nweetusers/${userObj.uid}`).update({ introduce: introduce });
+    refreshUser();
+    window.location.replace("/");
+}
 const onChange = (event) => {
     const {target:{value}} = event;
     setDisName(value);
+}
+
+const onChangeIntroduce = (event) => {
+    const {target:{value}} = event;
+    setIntroduce(value);
 }
 
 const onSubmitPic = async (event) => {
@@ -73,8 +85,13 @@ const onChangePicture = (event) => {
 
 return (
     <div className="container">
-        <div style={{justifyContent: "center",alignItems: "center", display: "flex", marginBottom: "20px"}}>{introduce}</div>
-        <form onSubmit={onSubmit} className="profileForm">
+        {/* <div style={{justifyContent: "center",alignItems: "center", display: "flex", marginBottom: "20px"}}>{introduce}</div> */}
+        <form onSubmit={onSubmitIntroduce} className="profileForm">
+            <input type="text" onChange={onChangeIntroduce} value={introduce} autoFocus placeholder="Introduce" className="formInput" />
+            <input type="submit" value={"Update Profile Introduce"} className="formBtn" style={{ marginTop: 10, }} />
+        </form>
+
+        <form onSubmit={onSubmit} className="profileForm" style={{marginBottom: "10px"}}>
             <input type="text" onChange={onChange} value={disName} autoFocus placeholder="Display Name" className="formInput" />
             <input type="submit" value={"Update Profile Name"} className="formBtn" style={{ marginTop: 10, }} />
         </form>
