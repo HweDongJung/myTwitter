@@ -54,6 +54,18 @@ form {
   color: black;
 }
 
+.formInput_long {
+  width: 100%;
+  height: 85px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+  /* text-align: center; */
+  background-color: white;
+  color: black;
+
+}
+
 .formBtn {
   cursor: pointer;
   width: 100%;

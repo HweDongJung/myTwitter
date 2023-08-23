@@ -87,7 +87,7 @@ return (
     <div className="container">
         {/* <div style={{justifyContent: "center",alignItems: "center", display: "flex", marginBottom: "20px"}}>{introduce}</div> */}
         <form onSubmit={onSubmitIntroduce} className="profileForm">
-            <input type="text" onChange={onChangeIntroduce} value={introduce} autoFocus placeholder="Introduce" className="formInput" />
+            <textarea type="text" maxLength={"100"} onChange={onChangeIntroduce} value={introduce} autoFocus placeholder="Introduce yourself" className="formInput_long" />
             <input type="submit" value={"Update Profile Introduce"} className="formBtn" style={{ marginTop: 10, }} />
         </form>
 
