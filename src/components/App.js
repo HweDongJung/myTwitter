@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { dbService, authService } from "../myfb"
-import { waitFor } from "@testing-library/react";
 
 function App() {
   const [init, setInit] = useState(false);

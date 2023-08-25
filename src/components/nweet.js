@@ -48,7 +48,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
     return ( 
         <div className="nweet">
             <div>
-                <Link to={`/${nweetDisName}`} state= { {uid: nweetObj.creatorId} }>
+                <Link to={`/${nweetDisName}`} state= { {uid: nweetObj.creatorId, isOwner: isOwner} }>
                 <img height="50" width="50" style={{verticalAlign: "top", border: "10px"}} src = {profilePic} />
                 <span style={{fontWeight: "bold", fontSize: "25px"}}>&nbsp;{nweetDisName}</span>
                 </Link>

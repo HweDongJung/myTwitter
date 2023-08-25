@@ -22,6 +22,7 @@ const AuthForm = () => {
             
             if(newaccount){ //create new account
                const newUser = await authService.createUserWithEmailAndPassword(email, password);
+               const followers = [];
                newUser.user.updateProfile({
                     displayName: "New_user" ,
                     photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19"
@@ -30,7 +31,8 @@ const AuthForm = () => {
                 displayName: "New_user",
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
                 introduce: "hello world!",
-                uid: newUser.user.uid
+                uid: newUser.user.uid,
+                followers: followers
             });
             } else {
                const data = await authService.signInWithEmailAndPassword(email, password);
