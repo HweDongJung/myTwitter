@@ -1,7 +1,8 @@
 import React, { useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
-import { dbService, storageService } from "../myfb";
-import { FieldValue } from "firebase/firestore";
+import { dbService, storageService } from "../myfb"; 
+import { arrayService } from "../myfb";
+
 
 const ViewProfile = () => {
     const location = useLocation();
@@ -15,7 +16,7 @@ const ViewProfile = () => {
     });
     const onSubmitFollow = async (event) => {
         event.preventDefault();
-        dbService.collection('nweetusers').doc('Evd8hqiu81YGS5QNM5s8UAlZUTG3').update("followers", FieldValue.arrayUnion("qwdasd"));
+        dbService.collection('nweetusers').doc('Evd8hqiu81YGS5QNM5s8UAlZUTG3').update({'followers': arrayService.arrayUnion("dqweqe")});
 
     }
 
