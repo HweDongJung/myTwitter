@@ -22,6 +22,7 @@ const AuthForm = () => {
             
             if(newaccount){ //create new account
                const newUser = await authService.createUserWithEmailAndPassword(email, password);
+               
                const followers = [];
                newUser.user.updateProfile({
                     displayName: "New_user" ,

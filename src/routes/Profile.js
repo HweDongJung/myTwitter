@@ -91,7 +91,7 @@ return (
             <input type="submit" value={"Update Profile Introduce"} className="formBtn" style={{ marginTop: 10, }} />
         </form>
 
-        <form onSubmit={onSubmit} className="profileForm" style={{marginBottom: "10px"}}>
+        <form onSubmit={onSubmit} className="profileForm" style={{marginBottom: "10px", marginTop: "10px"}}>
             <input type="text" onChange={onChange} value={disName} autoFocus placeholder="Display Name" className="formInput" />
             <input type="submit" value={"Update Profile Name"} className="formBtn" style={{ marginTop: 10, }} />
         </form>

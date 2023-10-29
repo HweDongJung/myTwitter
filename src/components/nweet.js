@@ -68,7 +68,7 @@ const Nweet = ({Key, nweetObj, isOwner}) => {
                 {nweetObj.fileUrl && <img src = {nweetObj.fileUrl} />}
                 { //텍스트에 유투브 링크가 있다면 유투브 iframe 삽입
                     youtubeID && 
-                    <iframe height="200px" style={{marginBottom: "10px"}} src={`https://www.youtube.com/embed/${youtubeID}`} frameborder="0" allowfullscreen />
+                    <iframe height="200px" style={{marginBottom: "10px"}} src={`https://www.youtube.com/embed/${youtubeID}`} frameBorder="0" allowFullScreen />
                 }
                 {isOwner ? (
                     <div className="nweet_actions">

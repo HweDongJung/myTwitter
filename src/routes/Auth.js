@@ -5,8 +5,9 @@ import {
   faGoogle,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import { authService, firebaseInstance } from "../myfb";
+import { authService, dbService, firebaseInstance } from "../myfb";
 import AuthForm from "../components/AuthForm";
+
 
 const Auth = () => {
     
@@ -20,6 +21,20 @@ const Auth = () => {
             provider = new firebaseInstance.auth.GithubAuthProvider();
         }
         const data = await authService.signInWithPopup(provider);
+        if(data.additionalUserInfo.isNewUser){
+            const followers = [];
+               data.user.updateProfile({
+                    displayName: "New_user" ,
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19"
+                });
+               dbService.collection("nweetusers").doc(data.user.uid).set({
+                displayName: "New_user",
+                photoURL: "https://firebasestorage.googleapis.com/v0/b/mytwitter-cfff0.appspot.com/o/default.png?alt=media&token=623ad82c-3e72-4a3c-84eb-c95ebbeafe19",
+                introduce: "hello world!",
+                uid: data.user.uid,
+                followers: followers
+                });
+        }
         console.log(data);
     };
 
